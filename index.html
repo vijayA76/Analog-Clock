@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog-Clock</title>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        .root{
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url(../media/bg1.jpg);
+            background-size: cover;
+            box-shadow: inset 0 0 0 2000px #0e0d0d7a;
+        }
+        .clock{
+            position: relative;
+            border: 4px dashed #1b1f34;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;            
+            padding: 10%;
+            background-image: radial-gradient(circle, #1b1f34d4, #0d90a5b8, #dfeff4ba);
+            box-shadow: 8px 8px 40px #000;
+        }
+        .digit{   
+
+            position: absolute;
+            padding: 3%;
+            font-size: large;
+            font-weight: bolder;
+        }
+        .h12{
+            top: 0px;
+            font-size: 30px;
+        }
+        .h6{
+            bottom: 0px;
+            font-size: 30px;
+        }
+        .h3{
+            right: 0px;
+            font-size: 30px;
+        }
+        .h9{
+            left: 0px;
+            font-size: 30px;
+        }
+        .h11{
+            top: 6%;
+            left: 25%;
+        }
+        .h10{
+            top: 22%;
+            left: 8%;
+        }
+        .h1{
+            top: 6%;
+            right: 25%;
+        }
+        .h2{
+            top: 22%;
+            right: 8%;
+        }
+        .h7{
+            bottom: 6%;
+            left: 25%;
+        }
+        .h8{
+            bottom: 22%;
+            left: 8%;
+        }
+        .h5{
+            bottom: 6%;
+            right: 25%;
+        }
+        .h4{
+            bottom: 22%;
+            right: 8%;
+        }
+        #hours{
+            border: 6px solid #161b28;
+            width: 20%;
+        }
+        #sec{
+            border: 1px solid #67bfc5;
+            width: 40%;
+        }
+        #min{
+            border: 3px solid #161b28;
+            width: 30%;
+        }
+        .line{
+            border-radius: 8px;
+            position: absolute;
+            left: 0%;
+            margin-left: 50%;
+            transform-origin: top left;
+        }
+        .dot{
+            position: absolute;
+            width: fit-content;
+            padding: 3%;
+            border-radius: 50%;
+            background-color: #161b28;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="root">
+        <div class="clock">
+            <div class="digit h12">12</div>
+            <div class="digit h11">11</div>
+            <div class="digit h10">10</div>
+            <div class="digit h9">9</div>
+            <div class="digit h8">8</div>
+            <div class="digit h7">7</div>
+            <div class="digit h6">6</div>
+            <div class="digit h5">5</div>
+            <div class="digit h4">4</div>
+            <div class="digit h3">3</div>
+            <div class="digit h2">2</div>
+            <div class="digit h1">1</div>
+            <div class="line" id="hours"></div>
+            <div class="line" id="min"></div>
+            <div class="line" id="sec"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <script>
+        setInterval(updateTime, 1000);
+
+        function updateTime() {
+            let date = new Date();
+            let s = date.getSeconds();
+            let h = date.getHours();
+            let m = date.getMinutes();
+
+            let degrees1 = ((s / 60) * 360)-90;
+            let degrees2 = ((m / 60) * 360 + (s / 3600) * 6)-90;
+            let degrees3 = ((h % 12) * 30 + (m / 60) * 30 + (s / 3600) * 30)-90;
+
+            let line1 = document.getElementById("hours");
+            line1.style.transform = `rotate(${degrees3}deg)`;
+
+            let line2 = document.getElementById("min");
+            line2.style.transform = `rotate(${degrees2}deg)`;
+
+            let line3 = document.getElementById("sec");
+            line3.style.transform = `rotate(${degrees1}deg)`;
+        }
+    </script>
+</body>
+</html>
